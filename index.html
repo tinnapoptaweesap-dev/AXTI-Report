@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AXTI (AXT Inc.) - Investment Research Report</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -36,23 +33,12 @@
                             800: '#075985',
                             900: '#0c4a6e',
                         }
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom Styles -->
     <style>
         body {
             background-color: #ffffff;
@@ -60,13 +46,10 @@
             overflow-x: hidden;
         }
 
-        /* Abstract Circuit Background */
         .circuit-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -2;
             background-color: #f8fafc;
             background-image: 
@@ -76,7 +59,6 @@
             background-size: 100% 100%, 40px 40px, 40px 40px;
         }
 
-        /* Glassmorphism Cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -89,48 +71,24 @@
             overflow: hidden;
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(14, 165, 233, 0.4);
-            box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.2);
-        }
-
-        /* Typography Gradients */
         .text-gradient {
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .text-gradient-alt {
             background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        
         #scroll-progress {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
+            top: 0; left: 0;
+            width: 0%; height: 3px;
             background: linear-gradient(90deg, #0ea5e9, #2563eb);
             z-index: 9999;
-            transition: width 0.1s;
         }
     </style>
 </head>
@@ -141,72 +99,61 @@
     
     <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40"></canvas>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="absolute inset-0 bg-white/80 backdrop-blur-md border-b border-tech-100 shadow-sm"></div>
+    <nav class="fixed w-full z-50 transition-all duration-300 shadow-sm" id="navbar">
+        <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-tech-100"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tech-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-tech-500/30">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tech-500 to-blue-600 flex items-center justify-center text-white shadow-md">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                     <span class="font-mono font-bold text-2xl text-slate-800 tracking-wider">AXTI</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#overview" class="text-sm font-semibold text-slate-600 hover:text-tech-600 transition-colors">ภาพรวม</a>
-                    <a href="#technology" class="text-sm font-semibold text-slate-600 hover:text-tech-600 transition-colors">เทคโนโลยี</a>
-                    <a href="#market" class="text-sm font-semibold text-slate-600 hover:text-tech-600 transition-colors">ตลาด</a>
-                    <a href="#financials" class="text-sm font-semibold text-slate-600 hover:text-tech-600 transition-colors">การเงิน</a>
-                    <a href="#catalysts" class="text-sm font-semibold text-slate-600 hover:text-tech-600 transition-colors">ปัจจัยหนุน/เสี่ยง</a>
+                    <a href="#overview" class="text-sm font-semibold text-slate-600 hover:text-tech-600">ภาพรวม</a>
+                    <a href="#technology" class="text-sm font-semibold text-slate-600 hover:text-tech-600">เทคโนโลยี</a>
+                    <a href="#market" class="text-sm font-semibold text-slate-600 hover:text-tech-600">ตลาด</a>
+                    <a href="#financials" class="text-sm font-semibold text-slate-600 hover:text-tech-600">การเงิน</a>
+                    <a href="#catalysts" class="text-sm font-semibold text-slate-600 hover:text-tech-600">โอกาส/ความเสี่ยง</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section class="relative min-h-screen flex items-center pt-20 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="gsap-hero-text">
+                <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tech-50 border border-tech-200 text-tech-700 text-sm font-semibold mb-6">
-                        <span class="relative flex h-3 w-3">
+                        <span class="relative flex h-2 w-2">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tech-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-tech-500"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-tech-500"></span>
                         </span>
                         NASDAQ: AXTI
                     </div>
-                    <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6 text-slate-900">
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-slate-900">
                         รากฐานแห่ง <br>
                         <span class="text-gradient">ยุค AI</span> และ <br>
                         <span class="text-gradient-alt">การสื่อสารล้ำยุค</span>
                     </h1>
-                    <p class="text-lg text-slate-600 mb-8 max-w-xl leading-relaxed">
+                    <p class="text-base sm:text-lg text-slate-600 mb-8 max-w-xl leading-relaxed">
                         เจาะลึก <strong>AXT Inc.</strong> บริษัทผู้อยู่เบื้องหลังการผลิต "วัสดุฐานชิปพิเศษ" (Compound Semiconductor Substrates) ที่ทำให้ AI Datacenter ส่งข้อมูลได้เร็วเท่าแสง
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#overview" class="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-tech-600 hover:shadow-lg hover:shadow-tech-500/30 transition-all duration-300 transform hover:-translate-y-1">
-                            เริ่มต้นทำความรู้จัก
-                        </a>
-                        <a href="#catalysts" class="px-8 py-4 bg-white text-slate-800 border border-slate-200 rounded-full font-semibold hover:border-tech-300 hover:bg-tech-50 transition-all duration-300">
-                            ดูบทวิเคราะห์โอกาส
-                        </a>
+                        <a href="#overview" class="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-tech-600 transition-all">เริ่มทำความรู้จัก</a>
+                        <a href="#catalysts" class="px-8 py-4 bg-white text-slate-800 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition-all">ดูวิเคราะห์โอกาส</a>
                     </div>
                 </div>
                 
-                <!-- 3D Hero Graphic -->
-                <div class="relative w-full h-[500px] flex justify-center items-center gsap-hero-graphic">
-                    <div class="absolute w-64 h-64 bg-tech-400 rounded-full blur-[100px] opacity-30 animate-pulse"></div>
-                    <div class="relative w-80 h-80 animate-float">
-                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-300 rounded-full border-4 border-white shadow-2xl animate-spin-slow" style="transform: rotateX(60deg);"></div>
-                        <div class="absolute inset-0 rounded-full animate-spin-slow" style="transform: rotateX(60deg); background-image: linear-gradient(rgba(14,165,233,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.2) 1px, transparent 1px); background-size: 20px 20px; clip-path: circle(48% at 50% 50%);"></div>
-                        <div class="absolute top-1/4 left-1/4 w-16 h-16 bg-white/90 backdrop-blur border border-tech-200 rounded-lg shadow-xl shadow-tech-500/20 flex items-center justify-center transform -translate-y-10 animate-float" style="animation-delay: 0s;">
-                            <span class="font-mono text-tech-600 font-bold">InP</span>
+                <div class="relative w-full h-[350px] sm:h-[450px] flex justify-center items-center">
+                    <div class="absolute w-56 h-56 bg-tech-400 rounded-full blur-[90px] opacity-20"></div>
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-300 rounded-full border-4 border-white shadow-xl" style="transform: rotateX(60deg);"></div>
+                        <div class="absolute top-1/4 left-1/4 w-14 h-14 bg-white/90 backdrop-blur border border-tech-200 rounded-lg shadow-lg flex items-center justify-center transform -translate-y-6">
+                            <span class="font-mono text-tech-600 font-bold text-sm">InP</span>
                         </div>
-                        <div class="absolute bottom-1/4 right-1/4 w-16 h-16 bg-white/90 backdrop-blur border border-emerald-200 rounded-lg shadow-xl shadow-emerald-500/20 flex items-center justify-center transform translate-y-10 animate-float" style="animation-delay: 1.5s;">
-                            <span class="font-mono text-emerald-600 font-bold">GaAs</span>
-                        </div>
-                        <div class="absolute top-1/3 right-1/4 w-12 h-12 bg-white/90 backdrop-blur border border-purple-200 rounded-lg shadow-xl shadow-purple-500/20 flex items-center justify-center animate-float" style="animation-delay: 3s;">
-                            <span class="font-mono text-purple-600 font-bold text-sm">Ge</span>
+                        <div class="absolute bottom-1/4 right-1/4 w-14 h-14 bg-white/90 backdrop-blur border border-emerald-200 rounded-lg shadow-lg flex items-center justify-center transform translate-y-6">
+                            <span class="font-mono text-emerald-600 font-bold text-sm">GaAs</span>
                         </div>
                     </div>
                 </div>
@@ -214,64 +161,44 @@
         </div>
     </section>
 
-    <!-- SECTION 1: ภาพรวมธุรกิจ -->
-    <section id="overview" class="py-24 relative border-t border-slate-100">
+    <section id="overview" class="py-20 border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-tech-600 font-mono font-bold tracking-widest text-sm uppercase mb-2">Business Overview</h2>
-                <h3 class="text-3xl md:text-4xl font-bold text-slate-900">เปลี่ยนจากศูนย์ สู่ความเข้าใจ "วัสดุฐานชิป"</h3>
+                <h2 class="text-tech-600 font-mono font-bold tracking-widest text-xs sm:text-sm uppercase mb-2">Business Overview</h2>
+                <h3 class="text-2xl sm:text-4xl font-bold text-slate-900">เปลี่ยนจากศูนย์ สู่ความเข้าใจ "วัสดุฐานชิป"</h3>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="space-y-8">
-                    <div class="glass-card p-8 border-l-4 border-l-tech-500">
-                        <h4 class="text-xl font-bold text-slate-900 mb-4"><i class="fa-solid fa-lightbulb text-tech-500 mr-2"></i> คำอุปมาให้เห็นภาพ (The Analogy)</h4>
-                        <p class="text-slate-600 leading-relaxed mb-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="glass-card p-6 sm:p-8 border-l-4 border-l-tech-500 bg-white">
+                        <h4 class="text-lg sm:text-xl font-bold text-slate-900 mb-3"><i class="fa-solid fa-lightbulb text-tech-500 mr-2"></i> คำอุปมาให้เห็นภาพ</h4>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-3">
                             ลองจินตนาการว่า <strong>ชิปคอมพิวเตอร์</strong> คือ "ตึกระฟ้า" <br>
                             บริษัทอย่าง Intel หรือ Nvidia คือ "สถาปนิกและผู้รับเหมา" <br>
-                            ส่วน <strong>AXTI คือ "ผู้ผลิตแผ่นปูนฐานราก" (Substrate)</strong> ที่ใช้สร้างตึก
+                            ส่วน <strong>AXTI คือ "ผู้ผลิตแผ่นปูนฐานราก" (Substrate)</strong>
                         </p>
-                        <p class="text-slate-600 leading-relaxed">
-                            ตึกทั่วไปใช้ปูนซีเมนต์มาตรฐาน นั่นคือ <strong>ซิลิคอน (Silicon)</strong> <br>
-                            แต่สำหรับซูเปอร์คอมพิวเตอร์ AI ซิลิคอนธรรมดาทนความร้อนและความเร็วไม่ไหว ต้องใช้ "วัสดุพิเศษ" และนี่คือจุดที่ AXTI เป็นพระเอก
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="text-2xl font-bold text-slate-900 mb-4">AXTI ทำธุรกิจอะไร?</h4>
-                        <p class="text-slate-600 leading-relaxed">
-                            AXT Inc. เป็นผู้พัฒนาและผลิต <strong>Compound Semiconductor Substrates</strong> หรือแผ่นเวเฟอร์วัสดุผสม ซึ่งมีคุณสมบัติเหนือกว่าซิลิคอนในเรื่องของ "การเปล่งแสง" และ "ความเร็วในการรับส่งสัญญาณวิทยุ"
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            ตึกทั่วไปใช้ปูนซีเมนต์มาตรฐาน นั่นคือ <strong>ซิลิคอน (Silicon)</strong> แต่สำหรับซูเปอร์คอมพิวเตอร์ AI ซิลิคอนธรรมดาทนความร้อนไม่ไหว ต้องใช้ "วัสดุพิเศษ" และนี่คือสนามของ AXTI
                         </p>
                     </div>
                 </div>
 
-                <div class="relative">
-                    <div class="absolute inset-0 bg-gradient-to-r from-tech-100 to-blue-50 rounded-3xl transform rotate-3"></div>
-                    <div class="glass-card p-8 relative">
-                        <h4 class="font-bold text-lg mb-6 text-center text-slate-800">ห่วงโซ่อุปทานการผลิตชิป</h4>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center p-4 bg-tech-50 rounded-xl border border-tech-200 shadow-[0_0_15px_rgba(14,165,233,0.3)] transform scale-105 z-10 relative">
-                                <div class="w-10 h-10 bg-tech-500 rounded-full flex items-center justify-center text-white font-bold mr-4">1</div>
-                                <div>
-                                    <h5 class="font-bold text-tech-900">Substrate / Wafer (จุดที่ AXTI อยู่)</h5>
-                                    <p class="text-sm text-tech-700">ผลิตแผ่นวัสดุฐานรากเปล่าๆ</p>
-                                </div>
+                <div class="glass-card p-6 sm:p-8 bg-white">
+                    <h4 class="font-bold text-base sm:text-lg mb-6 text-center text-slate-800">ห่วงโซ่อุปทานการผลิตชิป</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 sm:p-4 bg-tech-50 rounded-xl border border-tech-200 shadow-sm">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-tech-500 rounded-full flex items-center justify-center text-white font-bold mr-3 text-sm">1</div>
+                            <div>
+                                <h5 class="font-bold text-tech-900 text-sm sm:text-base">Substrate (จุดที่ AXTI อยู่)</h5>
+                                <p class="text-xs sm:text-sm text-tech-700">ผลิตแผ่นวัสดุฐานรากเปล่าๆ</p>
                             </div>
-                            <div class="flex justify-center text-slate-300"><i class="fa-solid fa-arrow-down"></i></div>
-                            <div class="flex items-center p-4 bg-white rounded-xl border border-slate-100">
-                                <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold mr-4">2</div>
-                                <div>
-                                    <h5 class="font-bold text-slate-700">Foundry (เช่น TSMC)</h5>
-                                    <p class="text-sm text-slate-500">เคลือบสารและแกะสลักวงจรลงไป</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-center text-slate-300"><i class="fa-solid fa-arrow-down"></i></div>
-                            <div class="flex items-center p-4 bg-white rounded-xl border border-slate-100">
-                                <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold mr-4">3</div>
-                                <div>
-                                    <h5 class="font-bold text-slate-700">Device Makers (เช่น Nvidia, Apple)</h5>
-                                    <p class="text-sm text-slate-500">ประกอบชิป AI ไปใช้งานจริง</p>
-                                </div>
+                        </div>
+                        <div class="text-center text-slate-300 text-xs"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="flex items-center p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold mr-3 text-sm">2</div>
+                            <div>
+                                <h5 class="font-bold text-slate-700 text-sm sm:text-base">Foundry (เช่น TSMC)</h5>
+                                <p class="text-xs sm:text-sm text-slate-500">นำแผ่นไปแกะสลักพิมพ์เขียววงจร</p>
                             </div>
                         </div>
                     </div>
@@ -280,375 +207,203 @@
         </div>
     </section>
 
-    <!-- SECTION 2: เทคโนโลยีและผลิตภัณฑ์ -->
-    <section id="technology" class="py-24 bg-slate-50/50 border-y border-slate-100 relative">
+    <section id="technology" class="py-20 bg-slate-50/50 border-y border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-tech-600 font-mono font-bold tracking-widest text-sm uppercase mb-2">Technology & Products</h2>
-                <h3 class="text-3xl md:text-4xl font-bold text-slate-900">3 เสาหลักของนวัตกรรม</h3>
+                <h2 class="text-tech-600 font-mono font-bold tracking-widest text-xs sm:text-sm uppercase mb-2">Products</h2>
+                <h3 class="text-2xl sm:text-4xl font-bold text-slate-900">3 เสาหลักของนวัตกรรม</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 bg-white">
-                    <div class="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-network-wired text-2xl text-blue-500"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-2 font-mono">InP</h4>
-                    <h5 class="text-blue-600 font-semibold mb-4">Indium Phosphide</h5>
-                    <p class="text-slate-600 mb-6">
-                        <strong>พระเอกตัวจริงในยุค AI.</strong> ชิป AI จำนวนมหาศาลต้องคุยกันด้วยความเร็วแสง วัสดุ InP คือสิ่งเดียวที่สามารถสร้าง "เลเซอร์" เพื่อยิงแสงส่งข้อมูลได้ดีที่สุด
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 sm:p-8 bg-white">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4 text-blue-500 font-bold">InP</div>
+                    <h4 class="text-xl font-bold text-slate-900">Indium Phosphide</h4>
+                    <p class="text-slate-600 text-sm mt-2">วัสดุเดียวที่สร้าง "เลเซอร์ยิงแสง" ส่งข้อมูลผ่านสายไฟเบอร์ออปติกใน AI Datacenter ความเร็ว 800G+ ได้ดีที่สุด</p>
                 </div>
-                <div class="glass-card p-8 bg-white">
-                    <div class="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-mobile-screen-button text-2xl text-emerald-500"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-2 font-mono">GaAs</h4>
-                    <h5 class="text-emerald-600 font-semibold mb-4">Gallium Arsenide</h5>
-                    <p class="text-slate-600 mb-6">
-                        <strong>แชมป์เปี้ยนคลื่นวิทยุและแสง.</strong> เก่งกว่าซิลิคอนในการจัดการสัญญาณวิทยุความถี่สูง และสามารถเปล่งแสงได้ นิยมในวงการหน้าจอ AR/VR และสมาร์ทโฟน
-                    </p>
+                <div class="glass-card p-6 sm:p-8 bg-white">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-4 text-emerald-500 font-bold">GaAs</div>
+                    <h4 class="text-xl font-bold text-slate-900">Gallium Arsenide</h4>
+                    <p class="text-slate-600 text-sm mt-2">เก่งด้านการจัดการคลื่นวิทยุความถี่สูง และการเปล่งแสง ใช้ในหน้าจอ AR/VR และเซนเซอร์มือถือ</p>
                 </div>
-                <div class="glass-card p-8 bg-white">
-                    <div class="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-satellite text-2xl text-purple-500"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-2 font-mono">Ge</h4>
-                    <h5 class="text-purple-600 font-semibold mb-4">Germanium</h5>
-                    <p class="text-slate-600 mb-6">
-                        <strong>พลังงานแห่งห้วงอวกาศ.</strong> เยอรเมเนียมเป็นวัสดุฐานที่ยอดเยี่ยมสำหรับการสร้างเซลล์แสงอาทิตย์ (Solar Cells) ประสิทธิภาพสูงสำหรับดาวเทียม
-                    </p>
+                <div class="glass-card p-6 sm:p-8 bg-white">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-4 text-purple-500 font-bold">Ge</div>
+                    <h4 class="text-xl font-bold text-slate-900">Germanium</h4>
+                    <p class="text-slate-600 text-sm mt-2">วัสดุฐานสำหรับทำแผงโซลาร์เซลล์ประสิทธิภาพสูงบน "ดาวเทียม" ทนทานต่อรังสีในอวกาศ</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: ตลาดและการแข่งขัน -->
-    <section id="market" class="py-24 relative overflow-hidden">
+    <section id="market" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-tech-600 font-mono font-bold tracking-widest text-sm uppercase mb-2">Market & Competition</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">สนามรบเฉพาะกลุ่ม <br>ที่เต็มไปด้วยโอกาส</h3>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        ตลาด Compound Semiconductor ต้องการความเชี่ยวชาญระดับสูงมาก ทำให้มีผู้เล่นหลักในโลกเพียงไม่กี่ราย
+                    <h2 class="text-tech-600 font-mono font-bold tracking-widest text-xs sm:text-sm uppercase mb-2">Market & Demand</h2>
+                    <h3 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">AI ขยายตลาด InP อย่างก้าวกระโดด</h3>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                        ด้วยเทคโนโลยีการผลิตแบบ VGF ของ AXTI ทำให้ได้แผ่นเวเฟอร์ที่มีความบริสุทธิ์สูงมาก ลด Defect ได้ดีกว่าคู่แข่งอย่าง Sumitomo หรือ Freiberger
                     </p>
-                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-8">
-                        <h4 class="font-bold text-slate-800 mb-4">คู่แข่งหลักในตลาด (Competitive Landscape)</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <div class="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></div>
-                                <div><strong class="text-slate-900">Sumitomo Electric (ญี่ปุ่น)</strong> - คู่แข่งเบอร์หนึ่งในตลาด InP</div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="w-2 h-2 rounded-full bg-orange-500 mt-2 mr-3"></div>
-                                <div><strong class="text-slate-900">Freiberger (เยอรมนี)</strong> - แข็งแกร่งใน GaAs</div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="w-2 h-2 rounded-full bg-tech-500 mt-2 mr-3 shadow-[0_0_10px_#0ea5e9]"></div>
-                                <div class="bg-tech-50 p-2 rounded-lg -mt-2 border border-tech-100">
-                                    <strong class="text-tech-700">AXT Inc. (สหรัฐฯ / จีน)</strong>
-                                    <p class="text-sm text-tech-600">จุดเด่น: ใช้เทคโนโลยี VGF ทำให้เวเฟอร์มีความบริสุทธิ์สูงมาก ลด Defect ได้ดีกว่า</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
-                <div class="relative flex items-center justify-center">
-                    <div class="w-full glass-card p-8">
-                        <h4 class="text-center font-bold text-slate-800 mb-8">AI ขยายตลาด InP อย่างก้าวกระโดด</h4>
-                        <div class="flex items-end justify-between h-64 gap-2 pb-8 border-b border-slate-200 relative">
-                            <div class="relative w-1/5 flex flex-col items-center group">
-                                <div class="w-full bg-slate-200 rounded-t-md h-[30%]"></div>
-                                <span class="absolute -bottom-6 text-xs font-mono text-slate-500">2021</span>
-                            </div>
-                            <div class="relative w-1/5 flex flex-col items-center group">
-                                <div class="w-full bg-slate-300 rounded-t-md h-[40%]"></div>
-                                <span class="absolute -bottom-6 text-xs font-mono text-slate-500">2022</span>
-                            </div>
-                            <div class="relative w-1/5 flex flex-col items-center group">
-                                <div class="w-full bg-slate-200 rounded-t-md h-[35%]"></div>
-                                <span class="absolute -bottom-6 text-xs font-mono text-slate-500">2023*</span>
-                            </div>
-                            <div class="relative w-1/5 flex flex-col items-center group">
-                                <div class="w-full bg-gradient-to-t from-tech-400 to-tech-600 rounded-t-md h-[70%] shadow-[0_0_15px_rgba(14,165,233,0.5)] relative">
-                                    <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-tech-900 text-white text-xs py-1 px-2 rounded whitespace-nowrap">AI Boom</div>
-                                </div>
-                                <span class="absolute -bottom-6 text-xs font-mono font-bold text-tech-600">2024</span>
-                            </div>
-                            <div class="relative w-1/5 flex flex-col items-center group">
-                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-700 rounded-t-md h-[100%] shadow-[0_0_20px_rgba(37,99,235,0.6)]"></div>
-                                <span class="absolute -bottom-6 text-xs font-mono font-bold text-blue-600">2025E</span>
-                            </div>
+                <div class="glass-card p-6 sm:p-8 bg-white">
+                    <div class="text-xs font-mono text-slate-400 text-right mb-4">Market Size Index</div>
+                    
+                    <div class="h-56 sm:h-64 flex items-end justify-between gap-2 sm:gap-4 pb-8 border-b border-slate-200 relative pt-8">
+                        
+                        <div class="w-1/5 h-full flex flex-col justify-end items-center">
+                            <div style="height: 30%;" class="w-full bg-slate-200 rounded-t-md"></div>
+                            <span class="absolute bottom-1 text-[10px] sm:text-xs font-mono text-slate-500">2021</span>
                         </div>
+
+                        <div class="w-1/5 h-full flex flex-col justify-end items-center">
+                            <div style="height: 42%;" class="w-full bg-slate-300 rounded-t-md"></div>
+                            <span class="absolute bottom-1 text-[10px] sm:text-xs font-mono text-slate-500">2022</span>
+                        </div>
+
+                        <div class="w-1/5 h-full flex flex-col justify-end items-center">
+                            <div style="height: 35%;" class="w-full bg-slate-200 rounded-t-md"></div>
+                            <span class="absolute bottom-1 text-[10px] sm:text-xs font-mono text-slate-500">2023*</span>
+                        </div>
+
+                        <div class="w-1/5 h-full flex flex-col justify-end items-center relative">
+                            <div class="absolute -top-6 bg-tech-900 text-white text-[9px] sm:text-[10px] font-bold py-0.5 px-1.5 rounded whitespace-nowrap shadow-md">AI Boom</div>
+                            <div style="height: 75%;" class="w-full bg-gradient-to-t from-tech-400 to-tech-600 rounded-t-md shadow-[0_0_12px_#0ea5e9]"></div>
+                            <span class="absolute bottom-1 text-[10px] sm:text-xs font-mono font-bold text-tech-600">2024</span>
+                        </div>
+
+                        <div class="w-1/5 h-full flex flex-col justify-end items-center">
+                            <div style="height: 100%;" class="w-full bg-gradient-to-t from-blue-600 to-blue-800 rounded-t-md shadow-[0_0_12px_#1e40af]"></div>
+                            <span class="absolute bottom-1 text-[10px] sm:text-xs font-mono font-bold text-blue-600">2025E</span>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- SECTION 4: การเงินและตัวชี้วัด -->
-    <section id="financials" class="py-24 bg-slate-900 text-white relative">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9zdmc+')] opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-tech-400 font-mono font-bold tracking-widest text-sm uppercase mb-2">Financial Performance</h2>
-                <h3 class="text-3xl md:text-4xl font-bold">ส่องตัวเลขการเงิน: วัฏจักรแห่งการฟื้นตัว</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6">
-                    <div class="text-slate-400 text-sm mb-2">รายได้ล่าสุด (Revenue)</div>
-                    <div class="flex items-end gap-2">
-                        <div class="text-3xl font-bold text-white">~$22.7M</div>
-                        <div class="text-emerald-400 text-sm font-bold pb-1"><i class="fa-solid fa-arrow-trend-up"></i> +QoQ</div>
-                    </div>
-                    <div class="text-xs text-slate-500 mt-2">อ้างอิงไตรมาสล่าสุด เริ่มฟื้นตัวชัดเจน</div>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6">
-                    <div class="text-slate-400 text-sm mb-2">แรงขับเคลื่อนหลัก</div>
-                    <div class="text-2xl font-bold text-tech-400">InP Datacom</div>
-                    <div class="text-xs text-slate-400 mt-2">ยอดสั่งซื้อเวเฟอร์สำหรับ AI ขยายตัวอย่างมีนัยสำคัญ</div>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6">
-                    <div class="text-slate-400 text-sm mb-2">อัตรากำไรขั้นต้น</div>
-                    <div class="text-3xl font-bold text-white">ฟื้นตัว</div>
-                    <div class="text-xs text-slate-400 mt-2">กำลังการผลิตเพิ่มขึ้น หนุน Operating Leverage</div>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6">
-                    <div class="text-slate-400 text-sm mb-2">สถานะเงินสด</div>
-                    <div class="text-2xl font-bold text-white">มั่นคง</div>
-                    <div class="text-xs text-slate-400 mt-2">มีสภาพคล่องเพียงพอต่อการลงทุนรับวัฏจักรใหม่</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 5 & 6: ผู้บริหาร & ปัจจัย/ความเสี่ยง -->
-    <section id="catalysts" class="py-24 relative bg-slate-50">
+    <section id="financials" class="py-20 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-20">
-                <div class="glass-card p-8 flex flex-col md:flex-row items-center gap-8 bg-white">
-                    <div class="w-24 h-24 rounded-full bg-slate-200 flex-shrink-0 border-4 border-white shadow-lg overflow-hidden flex items-center justify-center">
-                        <i class="fa-solid fa-user-tie text-4xl text-slate-400"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-tech-600 font-mono text-sm font-bold tracking-wider mb-1">LEADERSHIP</h4>
-                        <h3 class="text-2xl font-bold text-slate-900">Dr. Morris Young <span class="text-sm font-normal text-slate-500">| CEO & Founder</span></h3>
-                        <p class="mt-2 text-slate-600">
-                            ผู้ก่อตั้งบริษัทตั้งแต่ปี 1986 นำทีมก้าวผ่านวัฏจักรเซมิคอนดักเตอร์มาหลายยุคสมัย มีความเชี่ยวชาญด้านวัสดุศาสตร์อย่างลึกซึ้ง
-                        </p>
-                    </div>
+            <div class="text-center mb-12">
+                <h2 class="text-tech-400 font-mono text-xs sm:text-sm uppercase tracking-widest mb-1">Financials</h2>
+                <h3 class="text-2xl sm:text-4xl font-bold">ส่องตัวเลข: วัฏจักรแห่งการฟื้นตัว</h3>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                    <div class="text-xs text-slate-400 mb-1">รายได้ไตรมาสล่าสุด</div>
+                    <div class="text-xl sm:text-3xl font-bold text-white">~$22.7M</div>
+                    <div class="text-emerald-400 text-xs mt-1 font-semibold">+QoQ ฟื้นตัว</div>
+                </div>
+                <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                    <div class="text-xs text-slate-400 mb-1">ตัวขับเคลื่อนหลัก</div>
+                    <div class="text-lg sm:text-2xl font-bold text-tech-400">InP AI Wafer</div>
+                    <div class="text-slate-400 text-xs mt-1">ออเดอร์ทะลักเข้า</div>
+                </div>
+                <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                    <div class="text-xs text-slate-400 mb-1">อัตรากำไรขั้นต้น</div>
+                    <div class="text-xl sm:text-3xl font-bold text-white">Turnaround</div>
+                    <div class="text-slate-400 text-xs mt-1">ต้นทุนต่อหน่วยลดลง</div>
+                </div>
+                <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                    <div class="text-xs text-slate-400 mb-1">สภาพคล่อง</div>
+                    <div class="text-xl sm:text-3xl font-bold text-white">มั่นคง</div>
+                    <div class="text-slate-400 text-xs mt-1">เงินสดพร้อมรันต่อ</div>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <section id="catalysts" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">ตัวเร่งปฏิกิริยา & ความเสี่ยงที่ต้องระวัง</h2>
+                <h2 class="text-tech-600 font-mono text-xs sm:text-sm uppercase tracking-widest mb-1">Analysis</h2>
+                <h3 class="text-2xl sm:text-4xl font-bold text-slate-900">สรุปปัจจัยหนุน (Catalysts) & ความเสี่ยง (Risks)</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Catalysts -->
-                <div class="glass-card p-8 border-t-4 border-t-emerald-500 bg-white">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="glass-card p-6 sm:p-8 border-t-4 border-t-emerald-500 bg-white">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
-                            <i class="fa-solid fa-rocket text-emerald-600"></i>
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-rocket"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900">ปัจจัยหนุน (Catalysts)</h3>
+                        <h4 class="text-xl font-bold text-slate-900">โอกาสเติบโต (Bull Case)</h4>
                     </div>
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <div class="bg-emerald-50 text-emerald-600 p-2 rounded mr-4"><i class="fa-solid fa-brain"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">กระแส AI Data Center</h4>
-                                <p class="text-sm text-slate-600">AI Cluster ที่ใช้ GPU หลักหมื่นตัว ต้องเชื่อมต่อกันด้วยแสงความเร็วสูง ซึ่งขาด InP ของ AXTI แทบไม่ได้เลย</p>
-                            </div>
+                    <ul class="space-y-4 text-sm sm:text-base text-slate-600">
+                        <li class="flex gap-3">
+                            <span class="text-emerald-500 font-bold">1.</span>
+                            <div><strong>AI Data Center Upgrade:</strong> การเปลี่ยนผ่านไปสู่ตัวส่งสัญญาณแสงระดับ 800G และ 1.6T ทั่วโลก ทำให้ความต้องการเวเฟอร์ InP พุ่งสูงขึ้นแบบก้าวกระโดด</div>
                         </li>
-                        <li class="flex items-start">
-                            <div class="bg-emerald-50 text-emerald-600 p-2 rounded mr-4"><i class="fa-solid fa-satellite-dish"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">อุตสาหกรรมอวกาศ</h4>
-                                <p class="text-sm text-slate-600">การส่งดาวเทียมวงโคจรต่ำ (LEO) เพิ่มขึ้นอย่างต่อเนื่อง ดันความต้องการแผ่นเวเฟอร์เยอรเมเนียมสำหรับแผงโซลาร์เซลล์</p>
-                            </div>
+                        <li class="flex gap-3">
+                            <span class="text-emerald-500 font-bold">2.</span>
+                            <div><strong>สมรภูมิอวกาศ LEO:</strong> จำนวนดาวเทียมวงโคจรต่ำที่เพิ่มขึ้นของ Starlink และคู่แข่ง ต้องการเวเฟอร์เยอรเมเนียม (Ge) ไปทำแผงพลังงานแสงอาทิตย์เกรดอวกาศ</div>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Risks -->
-                <div class="glass-card p-8 border-t-4 border-t-red-500 bg-white">
+                <div class="glass-card p-6 sm:p-8 border-t-4 border-t-red-500 bg-white">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-                            <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900">ความเสี่ยง (Risks)</h3>
+                        <h4 class="text-xl font-bold text-slate-900">ความเสี่ยงสำคัญ (Bear Case)</h4>
                     </div>
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <div class="bg-red-50 text-red-600 p-2 rounded mr-4"><i class="fa-solid fa-ban"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">ภูมิรัฐศาสตร์ & ควบคุมส่งออก</h4>
-                                <p class="text-sm text-slate-600">จีนควบคุมการส่งออกแกลเลียมและเยอรเมเนียม หากเกิดสงครามการค้ารุนแรง AXTI อาจมีปัญหาในการส่งสินค้าให้ลูกค้าสหรัฐฯ</p>
-                            </div>
+                    <ul class="space-y-4 text-sm sm:text-base text-slate-600">
+                        <li class="flex gap-3">
+                            <span class="text-red-500 font-bold">1.</span>
+                            <div><strong>ความเสี่ยงภูมิรัฐศาสตร์ (Geopolitics):</strong> โรงงานหลักของ AXTI อยู่ในประเทศจีน หากรัฐบาลจีนเข้มงวดการส่งออกแร่แกลเลียม/เยอรเมเนียม จะกระทบซัพพลายเชนทันที</div>
                         </li>
-                        <li class="flex items-start">
-                            <div class="bg-red-50 text-red-600 p-2 rounded mr-4"><i class="fa-solid fa-chart-line-down"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">วัฏจักรขาลงของ Consumer</h4>
-                                <p class="text-sm text-slate-600">แม้ AI จะมาแรง แต่ฝั่งสมาร์ทโฟนและ Telecom เดิมยังคงฟื้นตัวช้า อาจกดดันรายได้รวม</p>
-                            </div>
+                        <li class="flex gap-3">
+                            <span class="text-red-500 font-bold">2.</span>
+                            <div><strong>การฟื้นตัวช้าของตลาด Consumer:</strong> แม้ AI จะโต แต่ถ้าตลาดมือถือและเสาสัญญาณ 5G ทั่วไปฟื้นตัวช้า จะคอยถ่วงรายได้รวมของบริษัทไว้</div>
                         </li>
                     </ul>
                 </div>
+
             </div>
+
         </div>
     </section>
 
-    <!-- SECTION 7: Analyst Sentiment -->
-    <section id="analyst" class="py-24 bg-white border-t border-tech-100">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-tech-600 font-mono font-bold tracking-widest text-sm uppercase mb-6">Analyst Sentiment</h2>
-            <div class="bg-white rounded-3xl p-10 shadow-xl shadow-tech-200/50 relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-tech-100 rounded-full blur-3xl"></div>
-                <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl"></div>
-                <div class="relative z-10">
-                    <h3 class="text-2xl font-bold text-slate-900 mb-8">มุมมองของนักวิเคราะห์ (Wall Street Consensus)</h3>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-12">
-                        <div class="text-center">
-                            <div class="text-6xl font-bold text-tech-500 mb-2">BUY</div>
-                            <div class="text-sm text-slate-500 font-mono bg-tech-50 px-3 py-1 rounded-full inline-block">Consensus Rating</div>
-                        </div>
-                        <div class="hidden md:block w-px h-24 bg-slate-200"></div>
-                        <div class="text-left">
-                            <p class="text-slate-600 leading-relaxed max-w-sm">
-                                นักวิเคราะห์ส่วนใหญ่มองว่า <strong>ความเสี่ยงด้านภูมิรัฐศาสตร์ได้สะท้อนในราคาหุ้นไปมากแล้ว</strong> ในขณะที่ "รอบการลงทุน AI Data Center" เพิ่งจะเริ่มต้นขึ้น ทำให้ AXTI เป็นหุ้นที่น่าจับตามองอย่างมาก
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-center">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-center items-center gap-2 mb-6 opacity-50">
-                <i class="fa-solid fa-microchip text-2xl"></i>
-                <span class="font-mono font-bold text-xl tracking-wider text-white">AXTI Research</span>
-            </div>
-            <p class="text-xs max-w-2xl mx-auto leading-relaxed">
-                <strong>Disclaimer:</strong> รายงานฉบับนี้จัดทำขึ้นเพื่อการศึกษาและการให้ข้อมูลเบื้องต้นเท่านั้น ไม่ใช่คำแนะนำในการซื้อขายหลักทรัพย์ โปรดศึกษาข้อมูลเพิ่มเติมด้วยตนเองและปรึกษาที่ปรึกษาทางการเงินก่อนตัดสินใจลงทุนใดๆ
-            </p>
-            <p class="text-xs mt-6">&copy; 2024 Independent Research Project. Fully Visible Code Version.</p>
-        </div>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-xs border-t border-slate-800">
+        <p class="max-w-xl mx-auto px-4 leading-relaxed">
+            Disclaimer: ข้อมูลนี้จัดทำเพื่อการศึกษาเชิงลึกเท่านั้น ไม่ใช่คำแนะนำในการซื้อขายหลักทรัพย์ AXTI มีความผันผวนสูงตามวัฏจักรเซมิคอนดักเตอร์
+        </p>
+        <p class="mt-4 text-slate-600">Fixed for Mobile Safari / Line WebKit Engine.</p>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
         // Progress bar
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('scroll-progress').style.width = scrolled + '%';
+            document.getElementById('scroll-progress').style.width = (winScroll / height) * 100 + '%';
         });
 
-        // Navbar shadow
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md');
-                navbar.querySelector('.absolute').classList.replace('bg-white/80', 'bg-white/95');
-            } else {
-                navbar.classList.remove('shadow-md');
-                navbar.querySelector('.absolute').classList.replace('bg-white/95', 'bg-white/80');
-            }
-        });
-
-        // เฉพาะแอนิเมชันส่วน Hero เท่านั้น (เพื่อความปลอดภัยบนมือถือ)
-        gsap.fromTo(".gsap-hero-text", 
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 }
-        );
-        gsap.fromTo(".gsap-hero-graphic", 
-            { scale: 0.8, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.7)", delay: 0.4 }
-        );
-
-        // Particle Canvas Background
+        // Particle simple fallback
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(14, 165, 233, 0.3)';
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            let numParticles = Math.floor((width * height) / 15000); 
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(14, 165, 233, ${0.15 * (1 - distance / 120)})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        
         window.addEventListener('resize', () => {
-            resize();
-            initParticles();
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
         });
 
-        resize();
-        initParticles();
-        animateParticles();
+        function draw() {
+            ctx.clearRect(0,0,w,h);
+            ctx.fillStyle = 'rgba(14, 165, 233, 0.1)';
+            for(let i=0; i<20; i++) {
+                ctx.beginPath();
+                ctx.arc((Math.sin(Date.now()/1000 + i)*0.5+0.5)*w, ((i*50)%h), 2, 0, Math.PI*2);
+                ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
     </script>
 </body>
 </html>
